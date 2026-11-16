@@ -1,0 +1,14 @@
+{
+  "name": "reality-simulator-ai",
+  "main": "index.js",
+  "compatibility_date": "2026-11-01",
+  "vars": {
+    "ALLOWED_ORIGINS": "https://fujitamasahir.github.io,http://localhost:8000,http://127.0.0.1:8000",
+    "OPENAI_MODEL": "gpt-4o-mini",
+    "ALLOW_PUBLIC_DEMO": "false"
+  },
+  "ratelimits": [
+    {"name":"IP_LIMITER","namespace_id":"87151","simple":{"limit":8,"period":60}},
+    {"name":"GLOBAL_LIMITER","namespace_id":"87152","simple":{"limit":30,"period":60}}
+  ]
+}
