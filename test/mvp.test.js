@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,existsSync} from 'node:fs';
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+test('static MVP has direct play, coming-soon notice and no live API imports',()=>{const html=read('index.html'),app=read('app.js');assert.match(html,/id="start-demo"/);assert.match(html,/Coming soon! In the meantime, try our instant demo\./);assert.match(app,/coming-soon'\)\.hidden=false/);assert.doesNotMatch(app,/from ['"]\.\/live\.js|\bfetch\(/);assert.doesNotMatch(html,/id="upload"|live\.js/);});
+test('visual briefing assets are local and manager is featured',()=>{assert.match(read('app.js'),/manager-scene/);for(const p of ['assets/manager.svg','assets/robotics-scene.svg','mvp.css'])assert.ok(existsSync(new URL('../'+p,import.meta.url)));});
