@@ -1,0 +1,78 @@
+/* The actual playable interface: full-size image, readable questions and choices. */
+#header-progress[hidden]{display:none}
+#header-progress{display:flex;align-items:center;gap:14px;margin:0 8px;font-size:15px;color:#e9f6f5;white-space:nowrap}
+#header-progress .progress-dots{gap:6px}
+#header-progress .progress-dots i{height:10px;width:10px;border:1px solid #9fb1bd;background:transparent;border-radius:50%}
+#header-progress .progress-dots .active{background:var(--mint);border-color:var(--mint)}
+.simulation-active{background:#08131d;min-height:100svh}
+.simulation-active header{background:#0a1924;border-color:#324a55;flex-shrink:0;padding:12px clamp(14px,2vw,30px);min-height:57px}
+.simulation-active .brand{font-size:clamp(15px,1.75vw,24px);letter-spacing:.01em}
+.simulation-active footer{display:none}
+.simulation-active main{width:100%;max-width:1840px;flex:1;margin:0 auto;padding:12px;display:flex;gap:0}
+.simulation-active .immersive-grid{width:100%;min-height:0;max-width:none;display:grid;grid-template-columns:minmax(0,1.19fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.immersive-grid .story-column,.immersive-grid .action-column{min-width:0;min-height:0;display:grid;align-content:stretch;gap:10px}
+.immersive-grid .story-column{grid-template-rows:minmax(330px,1fr) auto}
+.immersive-grid .action-column{grid-template-rows:auto 1fr}
+.immersive-grid .immersive-scene{position:relative;isolation:isolate;display:block;min-height:330px;height:100%;margin:0;padding:0;border:1px solid #496978;border-radius:13px;overflow:hidden;background:#102232}
+.immersive-grid .immersive-scene .scene-backdrop{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:53% 25%;filter:none;z-index:-2}
+.immersive-grid .immersive-scene .scene-light{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#05101b3b 0%,transparent 20%,transparent 37%,#06121e24 54%,#06121ee6 100%)}
+.immersive-grid .scene-caption{top:12px;left:13px;font-size:11px;border-radius:6px;padding:6px 9px;background:#0b1b29d9;color:#d9f6f2}
+.scene-caption i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:5px}
+.manager-name{position:absolute;right:12px;top:12px;display:grid;text-align:right;line-height:1.3;padding:6px 9px;background:#081724ce;border-radius:6px}
+.manager-name strong{font-size:15px;color:#fff}.manager-name span{font-size:11px;color:#d3e4e7}
+.immersive-grid .immersive-scene .scene-dialogue{position:absolute;left:12px;right:12px;bottom:12px;margin:0;padding:clamp(12px,1.4vw,20px);border:1px solid #7fe7d2a8;border-radius:13px;background:linear-gradient(120deg,#0a1c29f2,#0c2230e8);box-shadow:0 8px 25px #07142170}
+.immersive-grid .scene-dialogue .eyebrow{font-size:11px;letter-spacing:.1em;font-weight:700}
+.immersive-grid .scene-dialogue h1{font-size:clamp(25px,3vw,43px);line-height:1.07;letter-spacing:-.035em;margin:5px 0 9px}
+.immersive-grid .scene-dialogue p{font-size:clamp(16px,1.6vw,23px);line-height:1.36;color:#f0f6f7;margin:0}
+.immersive-grid .panel{border-color:#34515e;background:linear-gradient(145deg,#102632,#101b29);border-radius:13px;padding:clamp(12px,1.35vw,19px)}
+.immersive-grid h2{display:flex;align-items:center;gap:10px;font-size:clamp(20px,2.15vw,30px);margin:0 0 12px;letter-spacing:-.025em}
+.section-icon{color:var(--mint);font-weight:600;font-size:1.2em;line-height:1}
+.immersive-grid .evidence-records{gap:8px}
+.immersive-grid .evidence-record{background:#1c303d;border:1px solid #48606d;border-radius:10px;padding:10px 12px;gap:11px}
+.immersive-grid .evidence-record .record-icon{display:grid;place-items:center;width:35px;height:35px;min-width:35px;background:#284552;border-color:#4c6975;color:var(--mint);font-size:23px;line-height:1}
+.immersive-grid .evidence-record strong{font-size:clamp(15px,1.35vw,19px);color:#f1fbff;font-weight:700;line-height:1.2}
+.immersive-grid .evidence-record p{font-size:clamp(14px,1.22vw,18px);line-height:1.35;color:#e4edf1;margin:3px 0 0}
+.immersive-grid .compact-decision{display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
+.immersive-grid .compact-decision h2{margin:0 0 5px}
+.immersive-grid .compact-decision h3{font-size:clamp(23px,2.4vw,35px);line-height:1.15;letter-spacing:-.02em;color:var(--mint);margin:5px 0 12px}
+.choice-list{display:grid;gap:8px}
+.immersive-grid .compact-decision .choice{margin:0;background:#1b303e;border:1px solid #5a7180;border-radius:11px;color:#f0f8fa;display:flex;align-items:center;gap:13px;font-size:clamp(15px,1.45vw,21px);font-weight:600;line-height:1.28;padding:12px 13px;min-height:58px}
+.immersive-grid .choice:hover:not(:disabled){background:#214747;border-color:var(--mint)}
+.immersive-grid .choice-letter{min-width:36px;width:36px;height:36px;font-size:22px;font-weight:800;color:#0b2428;background:var(--mint);border:none;border-radius:8px;flex:none}
+.immersive-grid .choice.selected{opacity:1;border-color:var(--mint);background:#1b4244}
+.immersive-grid .choice:disabled:not(.selected){opacity:.45}
+.immersive-grid .choice.selected .choice-letter{color:#0b2428}
+.immersive-grid .decision-placeholder{margin-top:auto;padding:11px 0 0}
+.immersive-grid .decision-placeholder small{font-size:12px}
+.immersive-grid .feedback{font-size:clamp(13px,1.15vw,16px);margin:10px 0 0;padding:10px 12px;line-height:1.35}
+.immersive-grid .feedback p{margin:4px 0 0}
+.immersive-grid .next-step{margin-top:10px;font-size:clamp(14px,1.25vw,18px);padding:10px 14px}
+.immersive-grid .compact-insights{padding:10px 14px}
+.immersive-grid .insights-top{margin-bottom:7px}
+.immersive-grid .insights-top h3{font-size:18px;margin:0;font-weight:700}
+.immersive-grid .insights-top .chip{font-size:11px}
+.immersive-grid .mini-skills{row-gap:5px;grid-template-columns:minmax(0,1fr) minmax(75px,32%)}
+.immersive-grid .mini-skills .skill{font-size:13px}
+.immersive-grid .mini-skills .bar{height:7px}
+.immersive-grid .compact-insights>small{font-size:11px;line-height:1.3;display:block;margin-top:7px}
+@media(min-width:851px) and (min-height:650px){
+.simulation-active{min-height:100svh}.simulation-active main{min-height:calc(100svh - 57px)}
+.immersive-grid .story-column{grid-template-rows:minmax(330px,1fr) auto}
+.immersive-grid .immersive-scene .scene-backdrop{object-position:53% 25%}
+}
+@media(min-width:851px) and (max-height:850px){
+.simulation-active header{min-height:54px;padding-top:9px;padding-bottom:9px}.simulation-active main{padding:9px;min-height:calc(100svh - 54px)}
+.immersive-grid .panel{padding:11px 13px}.immersive-grid h2{font-size:24px;margin-bottom:8px}.immersive-grid .compact-decision h3{font-size:27px;margin:4px 0 8px}
+.immersive-grid .evidence-record{padding:8px 10px}.immersive-grid .evidence-record p{font-size:15px}.immersive-grid .evidence-record strong{font-size:16px}
+.immersive-grid .compact-decision .choice{font-size:17px;padding:9px 11px;min-height:49px}.immersive-grid .choice-letter{width:32px;height:32px;min-width:32px;font-size:20px}
+.immersive-grid .scene-dialogue h1{font-size:clamp(25px,3vw,36px)}.immersive-grid .scene-dialogue p{font-size:18px}
+.immersive-grid .feedback{font-size:14px;padding:8px 10px}.immersive-grid .next-step{margin-top:8px;padding:9px 12px}
+.immersive-grid.has-answer .choice:not(.selected){display:none}
+}
+@media(min-width:851px) and (max-height:680px){
+.immersive-grid .story-column{grid-template-rows:minmax(290px,1fr) auto}.immersive-grid .immersive-scene{min-height:290px}.immersive-grid .scene-dialogue p{font-size:16px}.immersive-grid .scene-dialogue h1{font-size:27px}.immersive-grid .compact-insights>small{font-size:10px}.immersive-grid .compact-insights{padding:8px 12px}.immersive-grid h2{font-size:21px}.immersive-grid .compact-decision h3{font-size:24px}.immersive-grid .compact-decision .choice{font-size:15px}.immersive-grid .evidence-record p{font-size:14px}.immersive-grid .evidence-record strong{font-size:15px}
+}
+@media(max-width:850px){
+.simulation-active header{flex-wrap:wrap;gap:6px}.simulation-active .brand{font-size:14px}.simulation-active header .tag{display:none}#header-progress{gap:7px;font-size:12px;margin:0 3px}#header-progress .progress-dots i{width:8px;height:8px}
+.simulation-active main{padding:10px}.simulation-active .immersive-grid{grid-template-columns:1fr}.immersive-grid .story-column{grid-template-rows:auto auto}.immersive-grid .immersive-scene{height:clamp(370px,65vw,510px)}.immersive-grid .scene-dialogue h1{font-size:30px}.immersive-grid .scene-dialogue p{font-size:17px}.immersive-grid .compact-decision .choice{font-size:16px}.immersive-grid .evidence-record p{font-size:15px}
+}
